@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace BattleShips
 {
-    enum shot_type
+    public enum shot_type
     {
         UNFIRED,
         MISS,
         HIT
     }
 
-    enum rotation
+    public enum Rotation
     {
         RIGHT,
         DOWN,
@@ -22,19 +22,68 @@ namespace BattleShips
         UP
     }
 
-    class Position
+    public class Position
     {
         public int x;
         public int y;
+
+        public Position(Rotation rot)
+        {
+            x = 0;
+            y = 0;
+            switch (rot) {
+            case Rotation.RIGHT:
+                this.x = 1;
+                break;
+            case Rotation.DOWN:
+                this.y = 1;
+                break;
+            case Rotation.RIGHT:
+                this.x = -1;
+                break;
+            case Rotation.DOWN:
+                this.y = -1;
+                break;
+            }
+        }
 
         public Position(int x, int y)
         {
             this.x = x;
             this.y = y;
         }
+
+        //https://msdn.microsoft.com/en-us/library/vstudio/336aedhh%28v=vs.100%29.aspx
+        public override int GetHashCode() 
+        {
+            return x ^ y;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null || !(obj is Position))
+                return false;
+
+            Position pos2 = (Position)obj;
+
+            if (pos2.x == x && pos2.y == y)
+                return true;
+            else
+                return false;
+        }
+
+        public static Position operator + (Position left, Position right)
+        {
+            return new Position (left.x + right.x, left.y + right.y);
+        }
+
+        public static Position operator - (Position left, Position right)
+        {
+            return new Position (left.x - right.x, left.y - right.y);
+        }
     }
 
-    class Ship
+    public class Ship
     {
         string name;
 
@@ -47,15 +96,15 @@ namespace BattleShips
         }
     }
 
-    class ShipInstance
+    public class ShipInstance
     {
         public Position pos;
-        public rotation rotation;
+        public Rotation rotation;
 
         public bool sunken;
 
         public Ship ship;
-        public ShipInstance(Position pos, rotation r, Ship ship)
+        public ShipInstance(Position pos, Rotation r, Ship ship)
         {
             this.pos = pos;
             this.rotation = r;
@@ -65,42 +114,35 @@ namespace BattleShips
         }
     }
 
-    class GameBase
+    public class GameBase
     {
     }
 
-    class Lobby
+    public class Lobby
     {
         public Board[] games;
         public Game game;
         public Lobby()
         {
-            games = new Board[2]{
-                new Board(this),
-                new Board(this)
-            };
+
         }
     }
 
-    class Game
+    public class Game
     {
         public Lobby lobby;
         public Board[] games;
-        public Dictionary<rotation, Position> rotations;
+        public Dictionary<Rotation, Position> rotations;
         public List<Ship> ships;
 
         public Game(Lobby lobby)
         {
             this.lobby = lobby;
-            this.games = (Board[])lobby.games.Clone(); //clone for security reasons
-
-            //create the rotation dictionary (allows converting into vector)
-            rotations = new Dictionary<rotation, Position>();
-            rotations.Add(rotation.RIGHT, new Position( 1,  0));
-            rotations.Add(rotation.DOWN,  new Position( 0,  1));
-            rotations.Add(rotation.LEFT,  new Position(-1,  0));
-            rotations.Add(rotation.UP,    new Position( 0, -1));
-
+            //this.games = (Board[])lobby.games.Clone(); //clone for security reasons
+            this.games = new Board[2] {
+                new Board(this),
+                new Board(this)
+            };
             //create ships list
             ships = new List<Ship>();
             ships.Add(new Ship("Aircraft carrier", 5));
@@ -112,7 +154,7 @@ namespace BattleShips
 
     }
 
-    class Board
+    public class Board
     {
 
 
@@ -132,25 +174,25 @@ namespace BattleShips
            ));*/
         }
 
-        public bool HitsShip(Position pos)
+        public ShipInstance HitsShip(Position pos)
         {
             foreach(ShipInstance shipinst in ships)
             {
+                Position shippos = shipinst.pos;
                 for (int i = 0; i < shipinst.ship.length; i++)
                 {
-                    int cx = shipinst.pos.x + game.rotations[shipinst.rotation].x;
-                    int cy = shipinst.pos.y + game.rotations[shipinst.rotation].y;
+                    if (pos.Equals(shippos))
+                        return shipinst;
 
-                    if (pos.x == cx && pos.y == cy)
-                        return true;
+                    shippos += new Position (shipinst.rotation);
                 }
             }
-            return false;
+            return null;
         }
 
         public shot_type FireAtShip(Position pos)
         {
-            bool hit = HitsShip(pos);
+            ShipInstance hit = HitsShip(pos);
             if (hit)
             {
                 shots[pos.x, pos.y] = shot_type.HIT;
