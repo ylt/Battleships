@@ -7,10 +7,11 @@ namespace BattleShips
 	{
 		public Board[] games;
 		public List<Ship> ships;
-
-		//public Lobby lobby;
+		
 		public Game game;
+
 		public List<ChatMessage> messages;
+		int messageId = 0;
 
 		private bool gameStarted = false;
 
@@ -35,6 +36,18 @@ namespace BattleShips
 		{
 			this.game = new Game(this);
 			gameStarted = true;
+		}
+
+		public void SendMessage(ChatMessage message)
+		{
+			message.sequenceId = messageId;
+			messages.Add (message);
+		}
+
+		public List<ChatMessage> RetrieveMessages(int messageId)
+		{
+			List<ChatMessage> newmsg = from message in messages where message.sequenceId > messageId select message;
+			return newmsg;
 		}
 	}
 }

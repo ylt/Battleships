@@ -4,7 +4,7 @@ namespace BattleShips
 {
 	public class ChatMessage
 	{
-		int sequenceId;
+		public int sequenceId;
 		public DateTime Timestamp;
 		public String user;
 		public String message;
