@@ -9,18 +9,11 @@ namespace BattleShips
 
 		public ShotType[,] shots = new ShotType[10,10];
 		public List<ShipInstance> ships = new List<ShipInstance>();
-		Game game;
+		GameBase game;
 
-		public Board(Game game)
+		public Board(GameBase game)
 		{
 			this.game = game;
-
-
-			/*ships.Add(new ShipInstance(
-                new Position(0,0),
-                rotation.RIGHT,
-                game.ships[1]
-           ));*/
 		}
 
 		public ShipInstance HitsShip(Position pos)
@@ -32,6 +25,24 @@ namespace BattleShips
 					return this;
 			}
 			return null;
+		}
+
+		public bool TestShipPosition(ShipInstance ship)
+		{
+			foreach (ShipInstance shipinst in ships) {
+				if (!shipinst.CheckOverlap (ship))
+					return false;
+			}
+			return true;
+		}
+
+		public bool TestShipDuplicate(Ship ship)
+		{
+			List<ShipInstance> results = from shipinst in ships where shipinst.ship == ship select shipinst;
+			if (results.Count > 0)
+				return true;
+			else
+				return false;
 		}
 
 		public ShotType FireAtShip(Position pos)

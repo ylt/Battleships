@@ -36,6 +36,20 @@ namespace BattleShips
 
 			return path;
 		}
+
+		public bool CheckOverlap(ShipInstance other)
+		{
+			List<Position> path = GetPath ();
+			List<Position> otherpath = other.GetPath ();
+
+			foreach (Position pos in path) {
+				if (otherpath.Contains(pos))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 }
 
