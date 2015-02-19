@@ -114,42 +114,61 @@ namespace BattleShips
         }
     }
 
+	public class ChatMessage
+	{
+		int sequenceId;
+		public DateTime Timestamp;
+		public String user;
+		public String message;
+	}
+
     public class GameBase
     {
-    }
+		public Board[] games;
+		public List<Ship> ships;
 
-    public class Lobby
-    {
-        public Board[] games;
-        public Game game;
-        public Lobby()
-        {
+		public Lobby lobby;
+		public Game game;
+		public List<ChatMessage> messages;
 
-        }
+		private bool gameStarted = false;
+
+		public GameBase()
+		{
+			ships = new List<Ship>();
+			ships.Add(new Ship("Aircraft carrier", 5));
+			ships.Add(new Ship("BattleShip", 4));
+			ships.Add(new Ship("Cruiser1", 3));
+			ships.Add(new Ship("Cruiser2", 3));
+			ships.Add(new Ship("Destroyer", 2));
+
+			games = new Board[2] {
+				new Board(this),
+				new Board(this)
+			};
+
+			messages = new List<ChatMessage> ();
+		}
+
+		public void StartGame()
+		{
+			this.game = new Game(this);
+			gameStarted = true;
+		}
     }
 
     public class Game
     {
-        public Lobby lobby;
-        public Board[] games;
-        public Dictionary<Rotation, Position> rotations;
-        public List<Ship> ships;
+		public GameBase gamebase;
 
-        public Game(Lobby lobby)
+		public Board[] games;
+
+		public Game(GameBase gamebase)
         {
-            this.lobby = lobby;
+			this.gamebase = gamebase;
             //this.games = (Board[])lobby.games.Clone(); //clone for security reasons
-            this.games = new Board[2] {
-                new Board(this),
-                new Board(this)
-            };
             //create ships list
-            ships = new List<Ship>();
-            ships.Add(new Ship("Aircraft carrier", 5));
-            ships.Add(new Ship("BattleShip", 4));
-            ships.Add(new Ship("Cruiser", 3));
-            ships.Add(new Ship("Cruiser", 3));
-            ships.Add(new Ship("Destroyer", 2));
+
         }
 
     }
