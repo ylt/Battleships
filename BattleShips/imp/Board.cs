@@ -27,14 +27,9 @@ namespace BattleShips
 		{
 			foreach(ShipInstance shipinst in ships)
 			{
-				Position shippos = shipinst.pos;
-				for (int i = 0; i < shipinst.ship.length; i++)
-				{
-					if (pos.Equals(shippos))
-						return shipinst;
-
-					shippos += new Position (shipinst.rotation);
-				}
+				List<Position> shipPath = shipinst.GetPath ();
+				if (shipPath.Contains (pos))
+					return this;
 			}
 			return null;
 		}
@@ -42,7 +37,7 @@ namespace BattleShips
 		public ShotType FireAtShip(Position pos)
 		{
 			ShipInstance hit = HitsShip(pos);
-			if (hit)
+			if (hit != null)
 			{
 				shots[pos.x, pos.y] = ShotType.HIT;
 			}
