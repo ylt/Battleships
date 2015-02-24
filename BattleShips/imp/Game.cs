@@ -13,7 +13,6 @@ namespace BattleShips
 			this.gamebase = gamebase;
 			//this.games = (Board[])lobby.games.Clone(); //clone for security reasons
 			//create ships list
-
 		}
 
 	}

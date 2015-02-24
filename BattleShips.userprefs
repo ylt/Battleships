@@ -1,0 +1,26 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="BattleShips/App.config">
+    <Files>
+      <File FileName="BattleShips/imp/Board.cs" Line="24" Column="24" />
+      <File FileName="BattleShips/imp/ChatMessage.cs" Line="1" Column="1" />
+      <File FileName="BattleShips/imp/Game.cs" Line="1" Column="1" />
+      <File FileName="BattleShips/imp/ShipInstance.cs" Line="19" Column="19" />
+      <File FileName="BattleShips/imp/Ship.cs" Line="4" Column="4" />
+      <File FileName="BattleShips/App.config" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="BattleShips" expanded="True" selected="True">
+            <Node name="imp" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
