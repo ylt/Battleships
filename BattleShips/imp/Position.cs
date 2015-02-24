@@ -18,10 +18,10 @@ namespace BattleShips
 			case Rotation.DOWN:
 				this.y = 1;
 				break;
-			case Rotation.RIGHT:
+			case Rotation.LEFT:
 				this.x = -1;
 				break;
-			case Rotation.DOWN:
+			case Rotation.UP:
 				this.y = -1;
 				break;
 			}
