@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace BattleShips
 {
+	[DataContract]
 	public enum Rotation
 	{
-		RIGHT,
-		DOWN,
-		LEFT,
-		UP
+		[EnumMember] RIGHT,
+		[EnumMember] DOWN,
+		[EnumMember] LEFT,
+		[EnumMember] UP
 	}
 }
 

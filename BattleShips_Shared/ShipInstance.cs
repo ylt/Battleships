@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace BattleShips
 {
+	[DataContract]
 	public class ShipInstance
 	{
-		public Position pos;
-		public Rotation rotation;
+		[DataMember] public Position pos;
+		[DataMember] public Rotation rotation;
+		[DataMember] public bool sunken;
+		[DataMember] public Ship ship;
 
-		public bool sunken;
-
-		public Ship ship;
 		public ShipInstance(Position pos, Rotation r, Ship ship)
 		{
 			this.pos = pos;

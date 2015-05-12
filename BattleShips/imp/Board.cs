@@ -22,7 +22,7 @@ namespace BattleShips
 			{
 				List<Position> shipPath = shipinst.GetPath ();
 				if (shipPath.Contains (pos))
-					return this;
+					return shipinst;
 			}
 			return null;
 		}

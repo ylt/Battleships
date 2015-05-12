@@ -6,10 +6,8 @@ namespace BattleShips
 	[DataContract]
 	public class Position
 	{
-		[DataMember]
-		public int x;
-		[DataMember]
-		public int y;
+		[DataMember] public int x;
+		[DataMember] public int y;
 
 		public Position(Rotation rot)
 		{
