@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 
-namespace ShopService2
+namespace BattleShips
 	{
 		class Program
 		{
@@ -12,7 +12,7 @@ namespace ShopService2
 			{
 				//hosts.Add(new ServiceHost(typeof(ProductService)));
 				//hosts.Add(new ServiceHost(typeof(UserService)));
-				hosts.Add(new ServiceHost(typeof(Service.ShopService)));
+				hosts.Add(new ServiceHost(typeof(imp.ShipsService)));
 			}
 			public void Open()
 			{

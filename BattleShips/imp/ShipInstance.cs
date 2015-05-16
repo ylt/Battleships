@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace BattleShips
+namespace BattleShips.imp
 {
 	[DataContract]
 	public class ShipInstance

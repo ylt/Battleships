@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace BattleShips
+namespace BattleShips.imp
 {
 	[DataContract]
 	public class ChatMessage
@@ -10,6 +10,11 @@ namespace BattleShips
 		[DataMember] public DateTime Timestamp;
 		[DataMember] public String user;
 		[DataMember] public String message;
+
+	    public ChatMessage(String user, String message)
+	    {
+	        
+	    }
 	}
 }
 
