@@ -1,0 +1,22 @@
+﻿<Window x:Class="Battleships_Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="265*"/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="245*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="159*"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="159*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="playerGrid"/>
+            <Grid x:Name="opponentGrid" Grid.Row="2"/>
+        </Grid>
+
+    </Grid>
+</Window>

@@ -22,6 +22,12 @@ namespace BattleShips.imp
 
         [OperationContract]
         ShotType Fire(int playerId, Position pos);
+
+        [OperationContract]
+        ShotType[] GetBoard(int playerId);
+
+        [OperationContract]
+        List<Ship> GetShips();
     }
 
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
@@ -47,6 +53,9 @@ namespace BattleShips.imp
 
         public bool AddShip(int playerId, ShipInstance ship)
         {
+            //clients only have access to the ship ID field
+            // read this out and inject in the real ship instance.
+            ship.ship = gb.ships[ship.shipId];
             return gb.games[playerId].AddShip(ship);
         }
 
@@ -55,6 +64,16 @@ namespace BattleShips.imp
             gb.SendMessage(new ChatMessage("SYSTEM", "turn"));
             ShotType stype = gb.games[1 - playerId].FireAtShip(pos);
             return stype;
+        }
+
+        public ShotType[] GetBoard(int playerId)
+        {
+            return gb.games[playerId].shots;
+        }
+
+        public List<Ship> GetShips()
+        {
+            return gb.ships;
         }
     }
 }
