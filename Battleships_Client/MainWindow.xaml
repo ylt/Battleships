@@ -41,7 +41,7 @@
                     <ColumnDefinition Width="79*"/>
                 </Grid.ColumnDefinitions>
                 <TextBox x:Name="messageBox" TextWrapping="Wrap"/>
-                <Button x:Name="sendButton" Content="Send" Grid.Column="1"/>
+                <Button x:Name="sendButton" Content="Send" Grid.Column="1" Click="sendButton_Click"/>
             </Grid>
             <Button Content="Rotate" Click="ChangeRotation"/>
         </Grid>

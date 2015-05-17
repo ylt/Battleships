@@ -21,7 +21,7 @@ namespace BattleShips.imp
         List<ChatMessage> RetrieveMessages(int sequenceId);
 
         [OperationContract]
-        void SendMessage(ChatMessage message);
+        void SendMessage(int playerId, ChatMessage message);
 
         [OperationContract]
         bool AddShip(int playerId, ShipInstance ship);
@@ -71,11 +71,14 @@ namespace BattleShips.imp
         {
             gb.games[playerId].Ready = true;
 
+            gb.SendMessage(new ChatMessage("Info", String.Format("Player {0} is ready!", gb.games[playerId].Name)));
+
             if (gb.games[1 - playerId].Ready == true)
             {
                 gb.StartGame();
                 return true;
             }
+
             return false;
         }
 
@@ -84,8 +87,9 @@ namespace BattleShips.imp
             return gb.RetrieveMessages(sequenceId);
         }
 
-        public void SendMessage(ChatMessage message)
+        public void SendMessage(int playerId, ChatMessage message)
         {
+            message.user = gb.games[playerId].Name;
             gb.SendMessage(message);
         }
 
@@ -106,7 +110,7 @@ namespace BattleShips.imp
 
         public ShotType Fire(int playerId, Position pos)
         {
-            gb.SendMessage(new ChatMessage("SYSTEM", "turn"));
+            gb.SendMessage(new ChatMessage("SYSTEM", "TURN:"+(1-playerId)));
             ShotType stype = gb.games[1 - playerId].FireAtShip(pos);
             return stype;
         }

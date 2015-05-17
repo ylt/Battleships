@@ -67,7 +67,7 @@ namespace Battleships_Client
             }
 
             playerButtons = buttoniseGrid(playerGrid, GridButtonClick);
-            opponentButtons = buttoniseGrid(opponentGrid, GridButtonClick);
+            opponentButtons = buttoniseGrid(opponentGrid, StrikeOpponent);
             buttonState(opponentButtons, false);
 
             //initialise gameplay related stuff
@@ -147,6 +147,7 @@ namespace Battleships_Client
 
         private void buttonState(GridEntry[,] grid, bool state)
         {
+            state = true; //temporary
             foreach (GridEntry entry in grid)
             {
                 entry.IsEnabled = state;
@@ -230,7 +231,7 @@ namespace Battleships_Client
             Position pos = inst.pos;
             for (int i = 0; i < shipTypes[inst.shipId].length; i++)
             {
-                buttons[pos.x, pos.y].Background = Brushes.Yellow;
+                buttons[pos.x, pos.y].Ship = inst;
 
                 //on the client side, the mathy helpers no-longer exist in Position :(
                 if (inst.rotation == BShipService.Rotation.RIGHT)
@@ -248,6 +249,7 @@ namespace Battleships_Client
         private void DonePlacing()
         {
             AddChatMessage("Help", "You've placed your ships, game marked as ready.");
+            gameState = 1;
             buttonState(playerButtons, false);
         }
 
@@ -269,8 +271,71 @@ namespace Battleships_Client
             ChatMessage[] messages = bships.RetrieveMessages(messageId);
             foreach(ChatMessage message in messages)
             {
-                ReceivedChatMessage(message);
+                if (message.user == "SYSTEM")
+                {
+                    ReceivedSystemMessage(message.message);
+                }
+                else
+                {
+                    ReceivedChatMessage(message);
+                }
             }
+        }
+
+        private void sendButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChatMessage message = new ChatMessage { message = messageBox.Text };
+            bships.SendMessage(message);
+        }
+
+        private void ReceivedSystemMessage(string message)
+        {
+            if (message == "START")
+            {
+                buttonState(opponentButtons, true);
+                gameState = 2;
+            }
+            else if (message.Substring(0, 4) == "TURN")
+            {
+                if (message.Substring(5, 1) == playerId.ToString())
+                {
+                    ShotType[] shots = bships.GetBoard(playerId);
+                    for (int x = 0; x < 10; x++)
+                    {
+                        for (int y = 0; y < 10; y++)
+                        {
+                            playerButtons[x, y].ShotType = shots[x + (y * 10)];
+                        }
+                    }
+                }
+            }
+        }
+
+        private void StrikeOpponent(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is GridEntry))
+            {
+                return;
+            }
+
+            GridEntry entry = sender as GridEntry;
+
+            if (gameState == 0)
+            {
+                AddChatMessage("Help", "Your board is the one above.");
+                return;
+            }
+            else if (gameState == 1)
+            {
+                AddChatMessage("Help", "The other player isn't ready yet");
+                return;
+            }
+            //no else as we returned early.
+
+            //TODO: turn check
+
+            ShotType shot = bships.Fire(playerId, new Position { x = entry.X, y = entry.Y });
+            entry.ShotType = shot;
         }
     }
 
@@ -279,7 +344,7 @@ namespace Battleships_Client
         int x;
         int y;
 
-        Ship ship;
+        ShipInstance ship;
         ShotType stype;
 
         public GridEntry(int x, int y) : base()
@@ -298,9 +363,23 @@ namespace Battleships_Client
             set
             {
                 this.stype = value;
-
+                UpdateColour();                
             }
         }
+
+        public ShipInstance Ship
+        {
+            get
+            {
+                return ship;
+            }
+            set
+            {
+                this.ship = value;
+                UpdateColour();
+            }
+        }
+
 
         public int X
         {
@@ -315,6 +394,26 @@ namespace Battleships_Client
             get
             {
                 return y;
+            }
+        }
+
+        public void UpdateColour()
+        {
+            if (stype == ShotType.HIT)
+            {
+                this.Background = Brushes.Orange;
+            }
+            else if (stype == ShotType.MISS)
+            {
+                this.Background = Brushes.Green;
+            }
+            else if (this.ship != null) // <---- if a ship is in position and is not a hit or miss
+            {
+                this.Background = Brushes.Yellow;
+            }
+            else if (stype == ShotType.UNFIRED)
+            {
+                this.Background = Brushes.CornflowerBlue;
             }
         }
 

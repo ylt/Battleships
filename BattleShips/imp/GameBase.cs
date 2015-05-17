@@ -37,7 +37,8 @@ namespace BattleShips.imp
 		{
 			this.game = new Game(this);
 			gameStarted = true;
-            SendMessage(new ChatMessage("System", "START"));
+            SendMessage(new ChatMessage("Info", "Game Started!"));
+            SendMessage(new ChatMessage("SYSTEM", "START"));
 		}
 
 		public void SendMessage(ChatMessage message)
