@@ -269,6 +269,12 @@ namespace Battleships_Client.BShipService {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         DOWN = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        LEFT = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        UP = 3,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
@@ -350,6 +356,18 @@ namespace Battleships_Client.BShipService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="BShipService.IShipsService")]
     public interface IShipsService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShipsService/NewPlayer", ReplyAction="http://tempuri.org/IShipsService/NewPlayerResponse")]
+        int NewPlayer();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShipsService/NewPlayer", ReplyAction="http://tempuri.org/IShipsService/NewPlayerResponse")]
+        System.Threading.Tasks.Task<int> NewPlayerAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShipsService/SetName", ReplyAction="http://tempuri.org/IShipsService/SetNameResponse")]
+        void SetName(int playerId, string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShipsService/SetName", ReplyAction="http://tempuri.org/IShipsService/SetNameResponse")]
+        System.Threading.Tasks.Task SetNameAsync(int playerId, string name);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShipsService/RetrieveMessages", ReplyAction="http://tempuri.org/IShipsService/RetrieveMessagesResponse")]
         Battleships_Client.BShipService.ChatMessage[] RetrieveMessages(int sequenceId);
         
@@ -412,6 +430,22 @@ namespace Battleships_Client.BShipService {
         
         public ShipsServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public int NewPlayer() {
+            return base.Channel.NewPlayer();
+        }
+        
+        public System.Threading.Tasks.Task<int> NewPlayerAsync() {
+            return base.Channel.NewPlayerAsync();
+        }
+        
+        public void SetName(int playerId, string name) {
+            base.Channel.SetName(playerId, name);
+        }
+        
+        public System.Threading.Tasks.Task SetNameAsync(int playerId, string name) {
+            return base.Channel.SetNameAsync(playerId, name);
         }
         
         public Battleships_Client.BShipService.ChatMessage[] RetrieveMessages(int sequenceId) {

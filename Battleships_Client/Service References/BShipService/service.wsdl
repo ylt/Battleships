@@ -7,6 +7,18 @@
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/BattleShips.imp" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IShipsService_NewPlayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:NewPlayer" />
+  </wsdl:message>
+  <wsdl:message name="IShipsService_NewPlayer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NewPlayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IShipsService_SetName_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetName" />
+  </wsdl:message>
+  <wsdl:message name="IShipsService_SetName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetNameResponse" />
+  </wsdl:message>
   <wsdl:message name="IShipsService_RetrieveMessages_InputMessage">
     <wsdl:part name="parameters" element="tns:RetrieveMessages" />
   </wsdl:message>
@@ -44,6 +56,14 @@
     <wsdl:part name="parameters" element="tns:GetShipsResponse" />
   </wsdl:message>
   <wsdl:portType name="IShipsService">
+    <wsdl:operation name="NewPlayer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShipsService/NewPlayer" message="tns:IShipsService_NewPlayer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShipsService/NewPlayerResponse" message="tns:IShipsService_NewPlayer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShipsService/SetName" message="tns:IShipsService_SetName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShipsService/SetNameResponse" message="tns:IShipsService_SetName_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="RetrieveMessages">
       <wsdl:input wsaw:Action="http://tempuri.org/IShipsService/RetrieveMessages" message="tns:IShipsService_RetrieveMessages_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IShipsService/RetrieveMessagesResponse" message="tns:IShipsService_RetrieveMessages_OutputMessage" />
@@ -71,6 +91,24 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IShipsService" type="tns:IShipsService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="NewPlayer">
+      <soap:operation soapAction="http://tempuri.org/IShipsService/NewPlayer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetName">
+      <soap:operation soapAction="http://tempuri.org/IShipsService/SetName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RetrieveMessages">
       <soap:operation soapAction="http://tempuri.org/IShipsService/RetrieveMessages" style="document" />
       <wsdl:input>

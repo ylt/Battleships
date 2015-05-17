@@ -35,6 +35,8 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="RIGHT" />
       <xs:enumeration value="DOWN" />
+      <xs:enumeration value="LEFT" />
+      <xs:enumeration value="UP" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Rotation" nillable="true" type="tns:Rotation" />

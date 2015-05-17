@@ -11,11 +11,25 @@ namespace BattleShips.imp
 		public ShotType[] shots = new ShotType[boardSize*boardSize];
 		public List<ShipInstance> ships = new List<ShipInstance>();
 		GameBase game;
+        string name;
 
 		public Board(GameBase game)
 		{
 			this.game = game;
 		}
+
+        public String Name {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
+
+        public bool Ready { get; set; }
 
         public bool AddShip(ShipInstance ship)
         {

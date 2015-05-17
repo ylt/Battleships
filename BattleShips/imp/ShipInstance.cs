@@ -4,53 +4,54 @@ using System.Runtime.Serialization;
 
 namespace BattleShips.imp
 {
-	[DataContract]
-	public class ShipInstance
-	{
-		[DataMember] public Position pos;
-		[DataMember] public Rotation rotation;
-		[DataMember] public bool sunken;
-		[DataMember] public Ship ship;
+    [DataContract]
+    public class ShipInstance
+    {
+        [DataMember] public Position pos;
+        [DataMember] public Rotation rotation;
+        [DataMember] public bool sunken;
+        [DataMember] public int shipId;
+        public Ship ship; //client will never touch ship directly.
 
-		public ShipInstance(Position pos, Rotation r, Ship ship)
-		{
-			this.pos = pos;
-			this.rotation = r;
-			this.ship = ship;
+        public ShipInstance(Position pos, Rotation r, Ship ship)
+        {
+            this.pos = pos;
+            this.rotation = r;
+            this.ship = ship;
 
-			this.sunken = false;
-		}
+            this.sunken = false;
+        }
 
-		public List<Position> GetPath()
-		{
-			List<Position> path = new List<Position>();
+        public List<Position> GetPath()
+        {
+            List<Position> path = new List<Position>();
 
-			Position shippos = pos;
-			Position rotpos = new Position (rotation);
+            Position shippos = pos;
+            Position rotpos = new Position(rotation);
 
-			for (int i = 0; i < ship.length; i++)
-			{
-				path.Add (shippos);
+            for (int i = 0; i < ship.length; i++)
+            {
+                path.Add(shippos);
 
-				shippos += rotpos;
-			}
+                shippos += rotpos;
+            }
 
-			return path;
-		}
+            return path;
+        }
 
-		public bool CheckOverlap(ShipInstance other)
-		{
-			List<Position> path = GetPath ();
-			List<Position> otherpath = other.GetPath ();
+        public bool CheckOverlap(ShipInstance other)
+        {
+            List<Position> path = GetPath();
+            List<Position> otherpath = other.GetPath();
 
-			foreach (Position pos in path) {
-				if (otherpath.Contains(pos))
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-	}
+            foreach (Position pos in path)
+            {
+                if (otherpath.Contains(pos))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 }
-

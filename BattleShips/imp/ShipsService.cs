@@ -12,6 +12,12 @@ namespace BattleShips.imp
     interface IShipsService
     {
         [OperationContract]
+        int NewPlayer();
+
+        [OperationContract]
+        void SetName(int playerId, string name);
+
+        [OperationContract]
         List<ChatMessage> RetrieveMessages(int sequenceId);
 
         [OperationContract]
@@ -34,12 +40,42 @@ namespace BattleShips.imp
     class ShipsService : IShipsService
     {
         private GameBase gb;
+        private int players;
 
         public ShipsService()
         {
             gb = new GameBase();
+            players = 0;
         }
 
+
+        public int NewPlayer()
+        {
+            int playerId = players;
+            players ++;
+
+            gb.games[playerId].Name = "Player " + playerId.ToString();
+
+            return playerId;
+        }
+
+        public void SetName(int playerId, string name)
+        {
+            gb.SendMessage(new ChatMessage("Info", String.Format("{0} is now known as {1}", gb.games[playerId].Name, name)));
+            gb.games[playerId].Name = name;
+        }
+
+        public bool setReady(int playerId)
+        {
+            gb.games[playerId].Ready = true;
+
+            if (gb.games[1 - playerId].Ready == true)
+            {
+                gb.StartGame();
+                return true;
+            }
+            return false;
+        }
 
         public List<ChatMessage> RetrieveMessages(int sequenceId)
         {
@@ -56,7 +92,14 @@ namespace BattleShips.imp
             //clients only have access to the ship ID field
             // read this out and inject in the real ship instance.
             ship.ship = gb.ships[ship.shipId];
-            return gb.games[playerId].AddShip(ship);
+            bool result = gb.games[playerId].AddShip(ship);
+
+            //automate ready
+            if (gb.games[playerId].ships.Count >= gb.ships.Count) //if pships > gbships SHOULD never happem, but.. you never know
+            {
+                setReady(playerId);
+            }
+            return result;
         }
 
         public ShotType Fire(int playerId, Position pos)
