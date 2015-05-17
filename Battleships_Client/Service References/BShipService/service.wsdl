@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ShipsService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/BattleShips.imp" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IShipsService_RetrieveMessages_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetrieveMessages" />
+  </wsdl:message>
+  <wsdl:message name="IShipsService_RetrieveMessages_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetrieveMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IShipsService_SendMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessage" />
+  </wsdl:message>
+  <wsdl:message name="IShipsService_SendMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IShipsService_AddShip_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddShip" />
+  </wsdl:message>
+  <wsdl:message name="IShipsService_AddShip_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddShipResponse" />
+  </wsdl:message>
+  <wsdl:message name="IShipsService_Fire_InputMessage">
+    <wsdl:part name="parameters" element="tns:Fire" />
+  </wsdl:message>
+  <wsdl:message name="IShipsService_Fire_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FireResponse" />
+  </wsdl:message>
+  <wsdl:message name="IShipsService_GetBoard_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBoard" />
+  </wsdl:message>
+  <wsdl:message name="IShipsService_GetBoard_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBoardResponse" />
+  </wsdl:message>
+  <wsdl:message name="IShipsService_GetShips_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetShips" />
+  </wsdl:message>
+  <wsdl:message name="IShipsService_GetShips_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetShipsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IShipsService">
+    <wsdl:operation name="RetrieveMessages">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShipsService/RetrieveMessages" message="tns:IShipsService_RetrieveMessages_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShipsService/RetrieveMessagesResponse" message="tns:IShipsService_RetrieveMessages_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShipsService/SendMessage" message="tns:IShipsService_SendMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShipsService/SendMessageResponse" message="tns:IShipsService_SendMessage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddShip">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShipsService/AddShip" message="tns:IShipsService_AddShip_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShipsService/AddShipResponse" message="tns:IShipsService_AddShip_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Fire">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShipsService/Fire" message="tns:IShipsService_Fire_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShipsService/FireResponse" message="tns:IShipsService_Fire_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBoard">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShipsService/GetBoard" message="tns:IShipsService_GetBoard_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShipsService/GetBoardResponse" message="tns:IShipsService_GetBoard_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetShips">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShipsService/GetShips" message="tns:IShipsService_GetShips_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShipsService/GetShipsResponse" message="tns:IShipsService_GetShips_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IShipsService" type="tns:IShipsService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RetrieveMessages">
+      <soap:operation soapAction="http://tempuri.org/IShipsService/RetrieveMessages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <soap:operation soapAction="http://tempuri.org/IShipsService/SendMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddShip">
+      <soap:operation soapAction="http://tempuri.org/IShipsService/AddShip" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Fire">
+      <soap:operation soapAction="http://tempuri.org/IShipsService/Fire" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBoard">
+      <soap:operation soapAction="http://tempuri.org/IShipsService/GetBoard" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShips">
+      <soap:operation soapAction="http://tempuri.org/IShipsService/GetShips" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ShipsService">
+    <wsdl:port name="BasicHttpBinding_IShipsService" binding="tns:BasicHttpBinding_IShipsService">
+      <soap:address location="http://localhost:8733/Design_Time_Addresses/BattleShips/ShipsService/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

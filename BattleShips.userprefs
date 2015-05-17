@@ -1,19 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="BattleShips/App.config">
+  <MonoDevelop.Ide.Workbench ActiveDocument="BattleShips/imp/Game.cs">
     <Files>
-      <File FileName="BattleShips/imp/Board.cs" Line="24" Column="24" />
-      <File FileName="BattleShips/imp/ChatMessage.cs" Line="1" Column="1" />
-      <File FileName="BattleShips/imp/Game.cs" Line="1" Column="1" />
-      <File FileName="BattleShips/imp/ShipInstance.cs" Line="19" Column="19" />
-      <File FileName="BattleShips/imp/Ship.cs" Line="4" Column="4" />
-      <File FileName="BattleShips/App.config" Line="1" Column="1" />
+      <File FileName="BattleShips/imp/Board.cs" Line="37" Column="4" />
+      <File FileName="BattleShips/imp/Game.cs" Line="13" Column="29" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="BattleShips" expanded="True" selected="True">
-            <Node name="imp" expanded="True" />
+          <Node name="BattleShips" expanded="True">
+            <Node name="imp" expanded="True">
+              <Node name="Game.cs" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>

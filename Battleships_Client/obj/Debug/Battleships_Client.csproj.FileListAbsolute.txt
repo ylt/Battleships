@@ -1,0 +1,13 @@
+C:\Users\joe\Desktop\battleships\Battleships_Client\bin\Debug\Battleships_Client.exe.config
+C:\Users\joe\Desktop\battleships\Battleships_Client\bin\Debug\Battleships_Client.exe
+C:\Users\joe\Desktop\battleships\Battleships_Client\bin\Debug\Battleships_Client.pdb
+C:\Users\joe\Desktop\battleships\Battleships_Client\obj\Debug\Battleships_Client.csprojResolveAssemblyReference.cache
+C:\Users\joe\Desktop\battleships\Battleships_Client\obj\Debug\MainWindow.baml
+C:\Users\joe\Desktop\battleships\Battleships_Client\obj\Debug\MainWindow.g.cs
+C:\Users\joe\Desktop\battleships\Battleships_Client\obj\Debug\App.g.cs
+C:\Users\joe\Desktop\battleships\Battleships_Client\obj\Debug\Battleships_Client_MarkupCompile.cache
+C:\Users\joe\Desktop\battleships\Battleships_Client\obj\Debug\Battleships_Client.g.resources
+C:\Users\joe\Desktop\battleships\Battleships_Client\obj\Debug\Battleships_Client.Properties.Resources.resources
+C:\Users\joe\Desktop\battleships\Battleships_Client\obj\Debug\Battleships_Client.csproj.GenerateResource.Cache
+C:\Users\joe\Desktop\battleships\Battleships_Client\obj\Debug\Battleships_Client.exe
+C:\Users\joe\Desktop\battleships\Battleships_Client\obj\Debug\Battleships_Client.pdb
