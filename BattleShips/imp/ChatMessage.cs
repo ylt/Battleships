@@ -13,7 +13,8 @@ namespace BattleShips.imp
 
 	    public ChatMessage(String user, String message)
 	    {
-	        
+            this.user = user;
+            this.message = message;
 	    }
 	}
 }

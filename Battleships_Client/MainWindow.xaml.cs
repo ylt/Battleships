@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Battleships_Client
 {
@@ -26,8 +29,11 @@ namespace Battleships_Client
         private GridEntry[,] playerButtons;
         private GridEntry[,] opponentButtons;
 
+        private DispatcherTimer timer;
+
         //gameplay vars
         private BShipService.ShipsServiceClient bships;
+        int messageId = -1;
 
         private int playerId;
         private int gameState = 0;
@@ -70,6 +76,12 @@ namespace Battleships_Client
             shipTypes = bships.GetShips();
 
             PlaceShipMsg();
+
+
+            timer = new System.Windows.Threading.DispatcherTimer();
+            timer.Tick += new EventHandler(CheckChat);
+            timer.Interval = new TimeSpan(0, 0, 1); //hours, minutes, seconds, milliseconds
+            timer.Start();
         }
 
         private void createLabel(Grid grid, int i)
@@ -241,7 +253,7 @@ namespace Battleships_Client
 
         private void ReceivedChatMessage(ChatMessage message)
         {
-            //set current message ID here.
+            messageId = message.sequenceId;
             AddChatMessage(message.user, message.message);
         }
 
@@ -249,6 +261,16 @@ namespace Battleships_Client
         {
             //TODO: handle scroll
             chatBox.Items.Add(new ChatEntry { Name = name, Message = message });
+        }
+
+        private void CheckChat(object sender, EventArgs e)
+        {
+            //AddChatMessage("debug", "timer");
+            ChatMessage[] messages = bships.RetrieveMessages(messageId);
+            foreach(ChatMessage message in messages)
+            {
+                ReceivedChatMessage(message);
+            }
         }
     }
 

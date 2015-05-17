@@ -54,7 +54,7 @@ namespace BattleShips.imp
 			//List<ChatMessage> newmsg = 
 
             return newmsg.AsEnumerable().Cast<ChatMessage>().ToList();*/
-            return messages.Where(x => x.sequenceId >= messageId).ToList();
+            return messages.Where(x => x.sequenceId > messageId).ToList();
 		}
 	}
 }

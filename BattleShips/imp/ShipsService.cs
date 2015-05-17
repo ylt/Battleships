@@ -56,6 +56,8 @@ namespace BattleShips.imp
 
             gb.games[playerId].Name = "Player " + playerId.ToString();
 
+            gb.SendMessage(new ChatMessage("Info", String.Format("Welcome {0}! :D", gb.games[playerId].Name)));
+
             return playerId;
         }
 
